@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masai Live - Every Session is a Build</title>
+    <meta name="description"
+        content="Masai Live - Every session is a build. Every build is shipped. Interactive sessions, live project builds, earn badges & certificates.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@1,400;1,500;1,600;1,700&family=Instrument+Serif:ital,wght@0,400;1,400&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'playfair': ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        'masai-red': '#E93B47',
+                        'masai-dark': '#0a0a0a',
+                        'masai-bg': '#0d0d0d',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Main wrapper with grid + glow */
+        .hero-wrapper {
+            position: relative;
+            min-height: 78vh;
+            background-color: #0a0a0a;
+            overflow: hidden;
+        }
+
+        /* Red grid pattern overlay — fades out towards bottom using absolute pixel values */
+        .hero-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(180, 30, 45, 0.25) 1.5px, transparent 1.5px),
+                linear-gradient(90deg, rgba(180, 30, 45, 0.25) 1.5px, transparent 1.5px);
+            background-size: 36px 36px;
+            pointer-events: none;
+            z-index: 1;
+            /* Fade grid from visible at top to invisible at 500px absolute */
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0px, rgba(0, 0, 0, 0.5) 250px, rgba(0, 0, 0, 0.12) 400px, rgba(0, 0, 0, 0) 500px);
+            mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0px, rgba(0, 0, 0, 0.5) 250px, rgba(0, 0, 0, 0.12) 400px, rgba(0, 0, 0, 0) 500px);
+        }
+
+        /* Continuous red glow across the top */
+        .glow-top {
+            position: absolute;
+            top: -60px;
+            left: 0;
+            right: 0;
+            height: 350px;
+            background: linear-gradient(180deg,
+                    rgba(150, 18, 30, 0.5) 0%,
+                    rgba(130, 15, 28, 0.3) 25%,
+                    rgba(100, 10, 20, 0.12) 55%,
+                    transparent 100%);
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(15px);
+        }
+
+        /* Soft white glow across the top of the cohort section */
+        .glow-white-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 250px;
+            background: linear-gradient(180deg,
+                    rgba(255, 255, 255, 0.05) 0%,
+                    rgba(255, 255, 255, 0.02) 40%,
+                    rgba(255, 255, 255, 0.005) 70%,
+                    transparent 100%);
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(10px);
+        }
+
+        /* Content z-index above grid */
+        .content-layer {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Navbar bar */
+        .navbar-bar {
+            background: rgba(15, 15, 15, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 999px;
+            padding: 10px 10px 10px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            backdrop-filter: blur(12px);
+        }
+
+        .navbar-bar .logo-text {
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            font-size: 20px;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .navbar-bar .logo-dot {
+            color: #E93B47;
+            font-weight: 800;
+        }
+
+        /* Navbar bottom separator line */
+        .navbar-separator {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.06) 20%, rgba(255, 255, 255, 0.06) 80%, transparent 100%);
+            margin-top: 6px;
+        }
+
+        /* Login button */
+        .login-btn {
+            background: #ED0331;
+            border-radius: 999px;
+            padding: 12px 28px;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 17px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.3px;
+        }
+
+        .login-btn:hover {
+            background: #d4022b;
+            box-shadow: 0 0 25px rgba(237, 3, 49, 0.4);
+            /* transform: translateY(-1px); */
+        }
+
+
+        /* Main heading */
+        .main-title {
+            text-align: center;
+            line-height: 1;
+        }
+
+        .main-title .masai-text {
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            font-size: clamp(56px, 9vw, 100px);
+            color: #ffffff;
+            letter-spacing: -3px;
+        }
+
+        .main-title .live-text {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+            font-style: italic;
+            font-size: clamp(56px, 9vw, 100px);
+            color: #B81F2B;
+            letter-spacing: -1px;
+            margin-left: 8px;
+        }
+
+        /* Subtitle text */
+        .subtitle-primary {
+            color: #d1d5db;
+            font-size: 24px;
+            font-weight: 400;
+            line-height: 1.4;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: -0.3px;
+        }
+
+        .subtitle-secondary {
+            color: #737373;
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.4;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: -0.1px;
+        }
+
+        /* CTA pill buttons */
+        .cta-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1.2px solid rgba(184, 31, 43, 0.35);
+            background: rgba(184, 31, 43, 0.05);
+            color: #ED0331;
+            padding: 12px 22px;
+            border-radius: 999px;
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            cursor: default;
+            transition: all 0.3s ease;
+        }
+
+        .cta-pill:hover {
+            background: rgba(237, 3, 49, 0.08);
+            border-color: rgba(237, 3, 49, 0.7);
+            box-shadow: 0 0 20px rgba(237, 3, 49, 0.15);
+        }
+
+        .cta-pill svg {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+
+        /* Header responsive padding */
+        .site-header {
+            padding: 24px 140px 0 140px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .site-header {
+                padding: 20px 60px 0 60px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .site-header {
+                padding: 16px 20px 0 20px;
+            }
+
+            .cta-buttons-wrap {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .glow-left,
+            .glow-right {
+                width: 300px;
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .site-header {
+                padding: 12px 12px 0 12px;
+            }
+        }
+
+        /* Cohort/Workshop Section Styles */
+        .toggle-container {
+            background: #0f0f10;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            padding: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toggle-btn {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            padding: 10px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toggle-btn.active {
+            background: #ED0331;
+            color: #ffffff;
+        }
+
+        .toggle-btn.inactive {
+            background: transparent;
+            color: #9ca3af;
+        }
+
+        .toggle-btn.inactive:hover {
+            color: #ffffff;
+        }
+
+        .new-badge {
+            font-size: 11px;
+            font-weight: 900;
+            padding: 3px 10px;
+            border-radius: 999px;
+            margin-left: 8px;
+            display: inline-block;
+            transition: all 0.2s ease;
+        }
+
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid rgba(237, 3, 49, 0.3);
+            background: rgba(237, 3, 49, 0.06);
+            color: #ED0331;
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            font-size: clamp(34px, 5vw, 52px);
+            color: #ffffff;
+            line-height: 1.1;
+            letter-spacing: -1px;
+        }
+
+        .section-title-italic {
+            font-family: 'Instrument Serif', serif;
+            font-weight: 400;
+            font-style: italic;
+            color: #e63946;
+            display: block;
+            margin-top: 4px;
+        }
+
+        .description-text {
+            color: #a3a3a3;
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 1.65;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .flat-badge {
+            background: rgba(255, 255, 255, 0.07);
+            color: #e5e5e5;
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .cohort-btn {
+            background: #ED0331;
+            color: #ffffff;
+            padding: 16px 36px;
+            border-radius: 999px;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .cohort-btn:hover {
+            background: #d4022b;
+            box-shadow: 0 0 25px rgba(237, 3, 49, 0.3);
+        }
+
+        .upcoming-card {
+            background-color: #110C0C !important;
+        }
+
+        /* Marquee Autoscroll Styles */
+        .marquee-container {
+            display: flex;
+            gap: 24px;
+            width: max-content;
+            animation: marquee-scroll 65s linear infinite;
+        }
+
+        .marquee-container:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes marquee-scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hero-wrapper">
+        <!-- Red glow effect -->
+        <div class="glow-top"></div>
+
+        <!-- Content -->
+        <div class="content-layer">
+            <!-- Navigation -->
+            <header id="main-header" class="site-header">
+                <nav class="navbar-bar">
+                    <img src="images/logo.png" alt="Masai" style="height: 40px; width: auto;">
+                    <a href="login.html" id="login-btn" class="login-btn">Login / Sign up</a>
+                </nav>
+                <div class="navbar-separator"></div>
+            </header>
+
+            <!-- Hero Section -->
+            <main id="hero-section" class="flex flex-col items-center justify-center px-4"
+                style="padding-top: 100px; padding-bottom: 40px;">
+                <!-- Main Heading -->
+                <div class="main-title mb-8">
+                    <h1>
+                        <span class="masai-text">masai</span><span class="live-text">live.</span>
+                    </h1>
+                </div>
+
+                <!-- Subtitles -->
+                <div class="max-w-3xl mx-auto mb-10">
+                    <p class="subtitle-primary">Every session is a build. Every build is shipped.</p>
+                    <p class="subtitle-secondary mt-3">No theory. Just builds, breakdowns, and proof of work.</p>
+                </div>
+
+                <!-- CTA Buttons -->
+                <div class="cta-buttons-wrap flex flex-wrap justify-center gap-4">
+                    <div id="btn-interactive" class="cta-pill">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 3h20"></path>
+                            <path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"></path>
+                            <path d="m7 21 5-5 5 5"></path>
+                        </svg>
+                        INTERACTIVE SESSIONS
+                    </div>
+                    <div id="btn-builds" class="cta-pill">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z">
+                            </path>
+                            <path
+                                d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z">
+                            </path>
+                            <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
+                            <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
+                        </svg>
+                        LIVE PROJECT BUILDS
+                    </div>
+                    <div id="btn-badges" class="cta-pill">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M3.85 8.62a4 4 0 0 1 5.15-5.15 4 4 0 0 1 5.4 0 4 4 0 0 1 5.15 5.15 4 4 0 0 1 0 5.4 4 4 0 0 1-5.15 5.15 4 4 0 0 1-5.4 0 4 4 0 0 1-5.15-5.15 4 4 0 0 1 0-5.4Z">
+                            </path>
+                            <path d="m9 12 2 2 4-4"></path>
+                        </svg>
+                        EARN BADGES &amp; CERTIFICATE
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Cohort/Workshop Section -->
+    <section id="cohort-section"
+        class="relative isolate overflow-hidden bg-[#060608] md:pt-[58px] md:pb-12 pb-6 w-full">
+        <!-- Soft white glow effect -->
+        <div class="glow-white-top"></div>
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <!-- Monthly / Weekly Toggle -->
+            <div class="flex justify-center mb-16">
+                <div class="toggle-container">
+                    <button id="toggle-monthly" class="toggle-btn active"
+                        onclick="setToggle('monthly')">MONTHLY</button>
+                    <button id="toggle-weekly" class="toggle-btn inactive" onclick="setToggle('weekly')">
+                        WEEKLY <span class="new-badge" style="background-color: #ED0331; color: #FFF200;">+
+                            NEW</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Content Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                <!-- Left Column -->
+                <div class="w-full">
+                    <!-- Mobile layout (exact DevTools inspect snippet) -->
+                    <div class="flex flex-col items-center gap-[14px] px-4 pb-5 pt-[15px] text-center lg:hidden">
+                        <div class="space-y-1">
+                            <h2 id="mobile-heading"
+                                class="text-[34px] font-semibold leading-[42px] tracking-[-0.5px] text-[#fafafa] font-sans">
+                                MCP Chief of Staff</h2>
+                            <p id="mobile-italic"
+                                class="font-['Instrument_Serif',serif] text-[34px] italic leading-[44px] text-[#e63946]">
+                                Workshop</p>
+                        </div>
+                        <div id="mobile-flat-badges" class="flex flex-wrap items-center justify-center gap-2.5">
+                            <span
+                                class="inline-flex h-6 items-center rounded-full border border-[#494748]/22 bg-[#ada6a6]/10 px-[13px] text-[12px] font-semibold uppercase tracking-[1.1px] text-[#d5d1d1] font-sans">FREE</span>
+                            <span
+                                class="inline-flex h-6 items-center rounded-full border border-[#494748]/22 bg-[#ada6a6]/10 px-[13px] text-[12px] font-semibold uppercase tracking-[1.1px] text-[#d5d1d1] font-sans">LIVE
+                                &amp; ASYNC</span>
+                            <span
+                                class="inline-flex h-6 items-center rounded-full border border-[#494748]/22 bg-[#ada6a6]/10 px-[13px] text-[12px] font-semibold uppercase tracking-[1.1px] text-[#d5d1d1] font-sans">BUILD
+                                &amp; SHIP APPLICATIONS</span>
+                            <span
+                                class="inline-flex h-6 items-center rounded-full border border-[#494748]/22 bg-[#ada6a6]/10 px-[13px] text-[12px] font-semibold uppercase tracking-[1.1px] text-[#d5d1d1] font-sans">CERTIFICATE</span>
+                        </div>
+                        <p id="mobile-description"
+                            class="line-clamp-3 max-h-[60px] text-[14px] leading-5 text-[#9a9a9a] font-sans">
+                            Create an AI-powered assistant that acts as a “Chief of Staff” for your
+                            communication workflows. The system ingests forwarded email threads or messages,
+                            understands context, prioritizes tasks, and generates intelligent replies or action
+                            items. Participants will learn MCP integrations, thread parsing, summarization, and
+                            automated response generation. The final output demonstrates real-time triaging and
+                            replying to live communication threads with minimal human intervention.</p>
+                        <button onclick="window.location.href='signup.html';"
+                            class="inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-2 focus-visible:ring-ring hover:opacity-90 py-2 h-[52px] w-full rounded-[234px] bg-[#ed0331] px-6 text-base font-semibold text-white hover:bg-[#ed0331]"
+                            type="button">
+                            Join for Free
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-arrow-right size-6" aria-hidden="true">
+                                <path d="M5 12h14"></path>
+                                <path d="m12 5 7 7-7 7"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Desktop layout -->
+                    <div class="hidden lg:flex flex-col items-start text-left w-full">
+                        <!-- Badges -->
+                        <div id="desktop-top-badges" class="flex flex-wrap gap-2.5 mb-8">
+                            <span class="live-badge">NOW LIVE</span>
+                            <span class="live-badge">11,038 JOINED</span>
+                            <span class="live-badge">DURATION: 1 MONTH</span>
+                        </div>
+
+                        <!-- Heading -->
+                        <h2 id="desktop-title" class="section-title">
+                            MCP Chief of Staff
+                            <span class="section-title-italic">Workshop</span>
+                        </h2>
+
+                        <!-- Description -->
+                        <p id="desktop-description" class="description-text my-8">
+                            Create an AI-powered assistant that acts as a "Chief of Staff" for your
+                            communication
+                            workflows. The system ingests forwarded email threads or messages, understands
+                            context,
+                            prioritizes tasks, and generates intelligent replies or action items. Participants
+                            will
+                            learn MCP integrations, thread parsing, summarization, and automated response
+                            generation. The final output demonstrates real-time triaging and replying to live
+                            communication threads with minimal human intervention.
+                        </p>
+
+                        <!-- Muted badges -->
+                        <div id="desktop-flat-badges" class="flex flex-wrap gap-2.5 mb-10">
+                            <span class="flat-badge">FREE</span>
+                            <span class="flat-badge">LIVE &amp; ASYNC</span>
+                            <span class="flat-badge">BUILD &amp; SHIP APPLICATIONS</span>
+                            <span class="flat-badge">CERTIFICATE</span>
+                        </div>
+
+                        <!-- Button -->
+                        <a href="signup.html" class="cohort-btn text-center inline-flex items-center justify-center">
+                            Join Cohort For Free &rarr;
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Column (Profile Card) -->
+                <div class="w-full flex justify-center lg:justify-end">
+                    <div
+                        class="relative h-[450px] md:h-[580px] max-w-[600px] w-full overflow-hidden rounded-[16px] border border-[#1f1f1f] bg-[#0d0d0d]">
+                        <!-- Card Image -->
+                        <img src="images/Tanishq+Desktop.png" alt="Tanishq Gupta"
+                            class="h-full w-full object-cover object-top">
+
+                        <!-- Mobile-only absolute badges -->
+                        <div id="card-top-badges"
+                            class="absolute top-3 right-3 flex md:hidden max-w-[calc(100%-24px)] flex-wrap justify-end gap-2">
+                            <span
+                                class="inline-flex h-6 items-center rounded-full border border-[#a2a2a2]/22 bg-black/40 px-[9px] text-[12px] font-semibold uppercase tracking-[1.1px] text-[#e8294a]">Duration:
+                                1 Month</span>
+                            <span
+                                class="inline-flex h-6 items-center rounded-full border border-[#a2a2a2]/22 bg-black/40 px-[9px] text-[12px] font-semibold uppercase tracking-[1.1px] text-[#e8294a]">11,045+
+                                joined</span>
+                        </div>
+
+                        <!-- Translucent Profile Info Overlay -->
+                        <div class="pointer-events-none absolute inset-x-3 bottom-3 z-10">
+                            <div
+                                class="rounded-[12px] border border-[#1f1f1f] bg-gradient-to-r from-[#0b0b0b] from-[12.676%] to-[rgba(11,11,11,0.8)] px-[11px] py-[7px] text-left">
+                                <div class="text-white text-[16px] font-bold font-sans">Tanishq Gupta</div>
+                                <div class="text-[#a3a3a3] text-[12px] mt-0.5 font-sans">SDE 2</div>
+                                <span
+                                    class="inline-block bg-[rgba(255,255,255,0.08)] text-white text-[10px] font-semibold px-[8px] py-[2px] rounded-full mt-1.5 uppercase tracking-wider font-sans">Amazon</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Previous Cohorts Section -->
+            <div class="mt-20 mb-2">
+                <div class="mx-auto max-w-[1440px] space-y-5 px-4 sm:px-6">
+                    <h3 class="text-center text-2xl font-semibold leading-8 text-[#fafafa] sm:text-[28px] sm:leading-9">
+                        Previous Cohorts</h3>
+                    <div class="flex justify-center">
+                        <article
+                            class="flex h-full w-full max-w-[380px] flex-col gap-5 rounded-[24px] border border-[#1a1919] bg-[#0d0d0d] p-4 lg:hidden">
+                            <div class="space-y-4">
+                                <div
+                                    class="relative h-[253px] w-full overflow-hidden rounded-[16px] border border-[#1a1919]">
+                                    <img src="https://masai-website-images.s3.ap-south-1.amazonaws.com/instructor_mobile_ffb2c351da.webp"
+                                        alt="" class="h-full w-full object-cover">
+                                </div>
+                                <div class="space-y-3">
+                                    <div class="space-y-0.5">
+                                        <h4 class="text-lg font-semibold leading-6 text-white">AI Job Agent</h4>
+                                        <p class="text-sm font-light leading-4 text-[#9e8c91]">with Saksham Arora,
+                                            Software Engineer II @ Intuit, Ex - Software Engineer @ Microsoft</p>
+                                    </div>
+                                    <div class="flex flex-wrap gap-3"><span
+                                            class="inline-flex max-w-full items-center rounded-full border border-[#ed0331]/35 bg-[#1f1417] text-[#fafafa] [&amp;_svg]:text-[#fda4af] h-7 gap-2 px-2.5 text-[11px] leading-none normal-case tracking-normal font-semibold"><svg
+                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="lucide lucide-users size-3.5 shrink-0" aria-hidden="true">
+                                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                                <path d="M16 3.128a4 4 0 0 1 0 7.744"></path>
+                                                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                                                <circle cx="9" cy="7" r="4"></circle>
+                                            </svg>10,365+ Learners</span><span
+                                            class="inline-flex max-w-full items-center rounded-full border border-[#ed0331]/35 bg-[#1f1417] text-[#fafafa] [&amp;_svg]:text-[#fda4af] h-7 gap-2 px-2.5 text-[11px] leading-none normal-case tracking-normal font-semibold">4.8★
+                                            | 1.5K Reviews</span></div>
+                                    <p class="max-w-full italic text-[#dbd9d9] text-xs leading-4">Watch the first
+                                        session for free, access the rest with Premium at ₹199/month</p>
+                                </div>
+                            </div>
+                            <div class="mt-auto space-y-4"><button onclick="window.location.href='signup.html';"
+                                    class="inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-2 focus-visible:ring-ring hover:opacity-90 py-2 h-[52px] w-full rounded-[234px] border border-[#ed0331] bg-transparent px-6 text-base font-semibold text-[#ed0331] hover:bg-black hover:text-[#ed0331]"
+                                    type="button">View Cohort<svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        class="lucide lucide-arrow-right size-6 text-[#ed0331]" aria-hidden="true">
+                                        <path d="M5 12h14"></path>
+                                        <path d="m12 5 7 7-7 7"></path>
+                                    </svg></button></div>
+                        </article>
+                        <article
+                            class="relative hidden w-full max-w-[1240px] items-start gap-5 overflow-hidden rounded-[24px] border border-[#2b1b1e] bg-[#0D0D0D] p-6 lg:flex">
+                            <div class="size-[148px] shrink-0 overflow-hidden rounded-lg border border-[#2c2c2c]"><img
+                                    src="https://masai-website-images.s3.ap-south-1.amazonaws.com/Chat_GPT_Image_May_8_2026_01_43_59_PM_ba4bd4f50c.png"
+                                    alt="" class="h-full w-full object-cover"></div>
+                            <div class="flex min-w-0 flex-1 flex-col gap-3 pr-[220px]">
+                                <div class="flex flex-wrap items-center gap-3">
+                                    <p class="font-['Instrument_Serif',serif] text-2xl italic leading-8 text-[#b81f2b]">
+                                        May Cohort</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <h4 class="text-xl font-bold leading-7 text-white">AI Job Agent</h4>
+                                    <p class="text-base font-light leading-6 text-[#9e8c91]">with Saksham Arora,
+                                        Software Engineer II @ Intuit, Ex - Software Engineer @ Microsoft</p>
+                                </div>
+                                <div class="flex flex-wrap gap-3"><span
+                                        class="inline-flex max-w-full items-center gap-1.5 rounded-full border border-[#ed0331]/35 bg-[#1f1417] text-[#fafafa] [&amp;_svg]:text-[#fda4af] h-8 px-3 text-[11px] leading-none normal-case tracking-normal font-semibold"><svg
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="lucide lucide-users size-3.5 shrink-0" aria-hidden="true">
+                                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                            <path d="M16 3.128a4 4 0 0 1 0 7.744"></path>
+                                            <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                                            <circle cx="9" cy="7" r="4"></circle>
+                                        </svg>10,365+ Learners</span><span
+                                        class="inline-flex max-w-full items-center gap-1.5 rounded-full border border-[#ed0331]/35 bg-[#1f1417] text-[#fafafa] [&amp;_svg]:text-[#fda4af] h-8 px-3 text-[11px] leading-none normal-case tracking-normal font-semibold">4.8★
+                                        | 1.5K Reviews</span></div>
+                                <p class="max-w-full italic text-[#dbd9d9] text-sm leading-5">Watch the first session
+                                    for free, access the rest with Premium at ₹199/month</p>
+                            </div>
+                            <div class="absolute top-1/2 right-6 -translate-y-1/2"><button
+                                    onclick="window.location.href='signup.html';"
+                                    class="inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-2 focus-visible:ring-ring border py-2 h-[52px] rounded-[234px] border-[#ed0331] bg-transparent px-6 text-base font-semibold text-[#ed0331] hover:bg-[#1b1515] hover:text-[#ed0331]"
+                                    type="button" fdprocessedid="2u8x89">View Cohort<svg
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="lucide lucide-arrow-right size-4 text-[#ed0331]"
+                                        aria-hidden="true">
+                                        <path d="M5 12h14"></path>
+                                        <path d="m12 5 7 7-7 7"></path>
+                                    </svg></button></div>
+                        </article>
+                    </div>
+                </div>
+    </section>
+
+    <!-- Upcoming Cohorts Section -->
+    <section id="upcoming-cohorts-section" class="relative isolate mx-auto overflow-hidden md:py-16 py-8">
+        <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-[-1] max-h-[80%]"
+            style="background-image: linear-gradient(rgba(6, 6, 8, 0.92) 0%, rgba(158, 18, 37, 0.11) 34%, rgba(6, 6, 8, 0.18) 62%, rgba(6, 6, 8, 0.92) 100%), repeating-linear-gradient(0deg, rgba(128, 21, 35, 0.18) 0px, rgba(128, 21, 35, 0.18) 1px, transparent 1px, transparent 34px), repeating-linear-gradient(90deg, rgba(128, 21, 35, 0.18) 0px, rgba(128, 21, 35, 0.18) 1px, transparent 1px, transparent 34px);">
+        </div>
+        <div class="mx-auto max-w-[1280px]">
+            <h3 class="text-center text-4xl font-bold tracking-[-1px] sm:text-[52px] sm:leading-[72px]">Upcoming <span
+                    class="font-['Instrument_Serif',serif] text-[#b81f2b] italic">cohorts.</span></h3>
+
+            <div class="mt-8 lg:hidden px-4">
+                <div class="relative w-full" role="region" aria-roledescription="carousel"
+                    style="--carousel-gap: 1rem;">
+                    <div class="overflow-hidden">
+                        <div id="upcoming-carousel"
+                            class="flex -ml-(--carousel-gap) overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar"
+                            style="scrollbar-width: none; -ms-overflow-style: none;">
+                            <!-- Slide 1 -->
+                            <div role="group" aria-roledescription="slide"
+                                class="min-w-0 shrink-0 grow-0 basis-full pl-(--carousel-gap) snap-center">
+                                <article
+                                    class="mx-auto w-[312px] rounded-[8px] border border-white/8 bg-[#110C0C] p-5 flex flex-col min-h-[260px]">
+                                    <p
+                                        class="font-['Instrument_Serif',serif] text-[40px] italic leading-tight tracking-[-2.5px] text-[#b81f2b]">
+                                        May</p>
+                                    <h4 class="mt-5 text-base font-bold text-white">AI Job Agent</h4>
+                                    <p class="mt-2 text-xs leading-4 text-white/45">Build an AI agent that finds jobs
+                                        and applies automatically.</p>
+                                    <div class="mt-auto pt-4 text-left">
+                                        <a href="signup.html"
+                                            class="inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-2 focus-visible:ring-ring hover:opacity-90 h-8 rounded-full bg-[#ed0331] px-4 text-[11px] font-semibold uppercase tracking-[1.1px] text-white hover:bg-[#ed0331]">Join
+                                            Cohort<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="lucide lucide-arrow-right size-3.5" aria-hidden="true">
+                                                <path d="M5 12h14"></path>
+                                                <path d="m12 5 7 7-7 7"></path>
+                                            </svg></a>
+                                    </div>
+                                </article>
+                            </div>
+                            <!-- Slide 2 -->
+                            <div role="group" aria-roledescription="slide"
+                                class="min-w-0 shrink-0 grow-0 basis-full pl-(--carousel-gap) snap-center">
+                                <article
+                                    class="mx-auto w-[312px] rounded-[8px] border border-white/8 bg-[#110C0C] p-5 flex flex-col min-h-[260px]">
+                                    <p
+                                        class="font-['Instrument_Serif',serif] text-[40px] italic leading-tight tracking-[-2.5px] text-[#b81f2b]">
+                                        July</p>
+                                    <h4 class="mt-5 text-base font-bold text-white">RAG on Your Docs</h4>
+                                    <p class="mt-2 text-xs leading-4 text-white/45">Ask your company handbook anything
+                                    </p>
+                                    <div class="mt-auto pt-4 text-left">
+                                        <div
+                                            class="py-1 transition-colors inline-flex h-8 items-center gap-1.5 rounded-full border px-3 text-[11px] font-semibold uppercase tracking-[1.1px] border-[#e8294a]/25 bg-[#e8294a]/12 text-[#e43f5f]">
+                                            upcoming</div>
+                                    </div>
+                                </article>
+                            </div>
+                            <!-- Slide 3 -->
+                            <div role="group" aria-roledescription="slide"
+                                class="min-w-0 shrink-0 grow-0 basis-full pl-(--carousel-gap) snap-center">
+                                <article
+                                    class="mx-auto w-[312px] rounded-[8px] border border-white/8 bg-[#110C0C] p-5 flex flex-col min-h-[260px]">
+                                    <p
+                                        class="font-['Instrument_Serif',serif] text-[40px] italic leading-tight tracking-[-2.5px] text-[#b81f2b]">
+                                        August</p>
+                                    <h4 class="mt-5 text-base font-bold text-white">Voice Agent for Customer Calls</h4>
+                                    <p class="mt-2 text-xs leading-4 text-white/45">A live phone number that handles
+                                        FAQs</p>
+                                    <div class="mt-auto pt-4 text-left">
+                                        <div
+                                            class="py-1 transition-colors inline-flex h-8 items-center gap-1.5 rounded-full border px-3 text-[11px] font-semibold uppercase tracking-[1.1px] border-[#e8294a]/25 bg-[#e8294a]/12 text-[#e43f5f]">
+                                            upcoming</div>
+                                    </div>
+                                </article>
+                            </div>
+                            <!-- Slide 4 -->
+                            <div role="group" aria-roledescription="slide"
+                                class="min-w-0 shrink-0 grow-0 basis-full pl-(--carousel-gap) snap-center">
+                                <article
+                                    class="mx-auto w-[312px] rounded-[8px] border border-white/8 bg-[#110C0C] p-5 flex flex-col min-h-[260px]">
+                                    <p
+                                        class="font-['Instrument_Serif',serif] text-[40px] italic leading-tight tracking-[-2.5px] text-[#b81f2b]">
+                                        September</p>
+                                    <h4 class="mt-5 text-base font-bold text-white">AI Content Repurposing Engine</h4>
+                                    <p class="mt-2 text-xs leading-4 text-white/45">One blog &rarr; LinkedIn + Twitter +
+                                        newsletter</p>
+                                    <div class="mt-auto pt-4 text-left">
+                                        <div
+                                            class="py-1 transition-colors inline-flex h-8 items-center gap-1.5 rounded-full border px-3 text-[11px] font-semibold uppercase tracking-[1.1px] border-[#e8294a]/25 bg-[#e8294a]/12 text-[#e43f5f]">
+                                            upcoming</div>
+                                    </div>
+                                </article>
+                            </div>
+                            <!-- Slide 5 -->
+                            <div role="group" aria-roledescription="slide"
+                                class="min-w-0 shrink-0 grow-0 basis-full pl-(--carousel-gap) snap-center">
+                                <article
+                                    class="mx-auto w-[312px] rounded-[8px] border border-white/8 bg-[#110C0C] p-5 flex flex-col min-h-[260px]">
+                                    <p
+                                        class="font-['Instrument_Serif',serif] text-[40px] italic leading-tight tracking-[-2.5px] text-[#b81f2b]">
+                                        October</p>
+                                    <h4 class="mt-5 text-base font-bold text-white">Personal Finance Copilot</h4>
+                                    <p class="mt-2 text-xs leading-4 text-white/45">Upload a bank statement, get a
+                                        savings plan</p>
+                                    <div class="mt-auto pt-4 text-left">
+                                        <div
+                                            class="py-1 transition-colors inline-flex h-8 items-center gap-1.5 rounded-full border px-3 text-[11px] font-semibold uppercase tracking-[1.1px] border-[#e8294a]/25 bg-[#e8294a]/12 text-[#e43f5f]">
+                                            upcoming</div>
+                                    </div>
+                                </article>
+                            </div>
+                            <!-- Slide 6 -->
+                            <div role="group" aria-roledescription="slide"
+                                class="min-w-0 shrink-0 grow-0 basis-full pl-(--carousel-gap) snap-center">
+                                <article aria-hidden="true"
+                                    class="mx-auto w-[312px] rounded-[8px] border border-white/8 bg-[#110C0C] p-5 flex flex-col min-h-[260px] select-none filter blur-[4px] opacity-35">
+                                    <div class="space-y-0 pointer-events-none">
+                                        <p
+                                            class="font-['Instrument_Serif',serif] text-[40px] italic leading-tight tracking-[-2.5px] text-[#b81f2b]">
+                                            August</p>
+                                        <h4 class="mt-5 text-base font-bold text-white">Career Systems Lab</h4>
+                                        <p class="mt-2 text-xs leading-4 text-white/45">Automate applications and
+                                            interviews with guided templates and tooling.</p>
+                                        <div class="mt-auto pt-4 text-left">
+                                            <div class="mt-4 h-8 w-32 rounded-full bg-white/15"></div>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex justify-end gap-3 pr-3">
+                        <button id="upcoming-prev-btn"
+                            class="inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-2 focus-visible:ring-ring border size-10 -left-12 top-1/2 -translate-y-1/2 static h-10 w-10 rounded-full border-[#2c2c2c] bg-transparent text-white hover:bg-white/5 translate-y-0! opacity-50"
+                            disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-arrow-left h-4 w-4" aria-hidden="true">
+                                <path d="m12 19-7-7 7-7"></path>
+                                <path d="M19 12H5"></path>
+                            </svg>
+                            <span class="sr-only">Previous slide</span>
+                        </button>
+                        <button id="upcoming-next-btn"
+                            class="inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-2 focus-visible:ring-ring border size-10 -right-12 top-1/2 -translate-y-1/2 static h-10 w-10 rounded-full border-[#2c2c2c] bg-transparent text-white hover:bg-white/5 translate-y-0!">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-arrow-right h-4 w-4" aria-hidden="true">
+                                <path d="M5 12h14"></path>
+                                <path d="m12 5 7 7-7 7"></path>
+                            </svg>
+                            <span class="sr-only">Next slide</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 hidden overflow-hidden rounded-[20px] border border-white/8 lg:grid lg:grid-cols-3">
+                <!-- Cell 1: May -->
+                <article class="flex flex-col border border-white/5 bg-[#110C0C] p-10">
+                    <p class="font-['Instrument_Serif',serif] text-5xl italic leading-tight text-[#b81f2b]">May</p>
+                    <h4 class="mt-5 text-2xl font-bold text-white">AI Job Agent</h4>
+                    <p class="mt-2 text-sm leading-6 text-white/45">Build an AI agent that finds jobs and applies
+                        automatically.</p>
+                    <div class="mt-auto pt-4 text-left">
+                        <a href="signup.html"
+                            class="inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-2 focus-visible:ring-ring hover:opacity-90 h-8 rounded-full bg-[#ed0331] px-4 text-[11px] font-semibold uppercase tracking-[1.1px] text-white hover:bg-[#ed0331]">Join
+                            Cohort<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-arrow-right size-3.5" aria-hidden="true">
+                                <path d="M5 12h14"></path>
+                                <path d="m12 5 7 7-7 7"></path>
+                            </svg></a>
+                    </div>
+                </article>
+                <!-- Cell 2: July -->
+                <article class="flex flex-col border border-white/5 bg-[#110C0C] p-10">
+                    <p class="font-['Instrument_Serif',serif] text-5xl italic leading-tight text-[#b81f2b]">July</p>
+                    <h4 class="mt-5 text-2xl font-bold text-white">RAG on Your Docs</h4>
+                    <p class="mt-2 text-sm leading-6 text-white/45">Ask your company handbook anything</p>
+                    <div class="mt-auto pt-4 text-left">
+                        <div
+                            class="py-1 transition-colors inline-flex h-8 items-center gap-1.5 rounded-full border px-3 text-[11px] font-semibold uppercase tracking-[1.1px] border-[#e8294a]/25 bg-[#e8294a]/12 text-[#e43f5f]">
+                            upcoming</div>
+                    </div>
+                </article>
+                <!-- Cell 3: August -->
+                <article class="flex flex-col border border-white/5 bg-[#110C0C] p-10">
+                    <p class="font-['Instrument_Serif',serif] text-5xl italic leading-tight text-[#b81f2b]">August</p>
+                    <h4 class="mt-5 text-2xl font-bold text-white">Voice Agent for Customer Calls</h4>
+                    <p class="mt-2 text-sm leading-6 text-white/45">A live phone number that handles FAQs</p>
+                    <div class="mt-auto pt-4 text-left">
+                        <div
+                            class="py-1 transition-colors inline-flex h-8 items-center gap-1.5 rounded-full border px-3 text-[11px] font-semibold uppercase tracking-[1.1px] border-[#e8294a]/25 bg-[#e8294a]/12 text-[#e43f5f]">
+                            upcoming</div>
+                    </div>
+                </article>
+                <!-- Cell 4: September -->
+                <article class="flex flex-col border border-white/5 bg-[#110C0C] p-10">
+                    <p class="font-['Instrument_Serif',serif] text-5xl italic leading-tight text-[#b81f2b]">September
+                    </p>
+                    <h4 class="mt-5 text-2xl font-bold text-white">AI Content Repurposing Engine</h4>
+                    <p class="mt-2 text-sm leading-6 text-white/45">One blog &rarr; LinkedIn + Twitter + newsletter</p>
+                    <div class="mt-auto pt-4 text-left">
+                        <div
+                            class="py-1 transition-colors inline-flex h-8 items-center gap-1.5 rounded-full border px-3 text-[11px] font-semibold uppercase tracking-[1.1px] border-[#e8294a]/25 bg-[#e8294a]/12 text-[#e43f5f]">
+                            upcoming</div>
+                    </div>
+                </article>
+                <!-- Cell 5: October -->
+                <article class="flex flex-col border border-white/5 bg-[#110C0C] p-10">
+                    <p class="font-['Instrument_Serif',serif] text-5xl italic leading-tight text-[#b81f2b]">October</p>
+                    <h4 class="mt-5 text-2xl font-bold text-white">Personal Finance Copilot</h4>
+                    <p class="mt-2 text-sm leading-6 text-white/45">Upload a bank statement, get a savings plan</p>
+                    <div class="mt-auto pt-4 text-left">
+                        <div
+                            class="py-1 transition-colors inline-flex h-8 items-center gap-1.5 rounded-full border px-3 text-[11px] font-semibold uppercase tracking-[1.1px] border-[#e8294a]/25 bg-[#e8294a]/12 text-[#e43f5f]">
+                            upcoming</div>
+                    </div>
+                </article>
+                <!-- Cell 6: August - Career Systems Lab (Blurred) -->
+                <article aria-hidden="true"
+                    class="relative flex flex-col overflow-hidden border border-white/5 bg-[#110C0C] p-10 select-none">
+                    <div class="pointer-events-none space-y-0 blur-[5px] opacity-35 saturate-50">
+                        <p class="font-['Instrument_Serif',serif] text-5xl italic leading-tight text-[#b81f2b]">August
+                        </p>
+                        <h4 class="mt-5 text-2xl font-bold text-white">Career Systems Lab</h4>
+                        <p class="mt-2 text-sm leading-6 text-white/45">Automate applications and interviews with guided
+                            templates and tooling.</p>
+                        <div class="mt-8 h-12 w-44 rounded-full bg-white/15"></div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shipped Applications Section -->
+    <section id="shipped-section"
+        class="relative isolate overflow-hidden bg-[#060608] pt-16 pb-28 w-full border-t border-[#1f1f1f]/30">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+            <!-- Heading -->
+            <div class="text-center mb-16">
+                <h2 class="text-white text-[48px] md:text-[64px] font-extrabold tracking-[-1.5px] font-sans">
+                    1,200+ Applications <span
+                        class="font-['Instrument_Serif',serif] italic font-normal text-[#e63946]">shipped.</span>
+                </h2>
+                <p class="text-[#a3a3a3] text-[16px] md:text-[18px] font-medium mt-4 font-sans max-w-2xl mx-auto">
+                    Every post is a proof. Every proof is a certificate. The wall never lies.
+                </p>
+            </div>
+        </div>
+
+        <!-- Marquee container full width (desktop-only) -->
+        <div class="w-full overflow-hidden relative py-4 hidden md:block">
+            <!-- Left and Right fade overlay -->
+            <div
+                class="absolute inset-y-0 left-0 w-24 md:w-48 bg-gradient-to-r from-[#060608] to-transparent z-20 pointer-events-none">
+            </div>
+            <div
+                class="absolute inset-y-0 right-0 w-24 md:w-48 bg-gradient-to-l from-[#060608] to-transparent z-20 pointer-events-none">
+            </div>
+
+            <!-- Seamless scrolling wrapper -->
+            <div class="marquee-container" style="gap: 40px;">
+                <!-- Group 1 -->
+                <div class="flex flex-row">
+
+                    <!-- Column 1: Surya Uday & Shreya Goyal (stacked) -->
+                    <div class="mr-10 flex shrink-0 flex-col gap-6 mt-[96px]">
+                        <!-- Surya Uday -->
+                        <article
+                            class="relative flex w-[min(86vw,430px)] flex-col overflow-hidden rounded-[24px] border border-white/25 bg-[#09090c] lg:w-[430px] h-[316px]">
+                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                <img src="https://cdn.masaischool.com/masai-website/5acd7615_149d_4c64_a29f_66f1a12f3cab_2f0f5cfb58.webp"
+                                    alt="Surya Uday" class="absolute inset-0 h-full w-full object-cover">
+                            </div>
+                            <div class="relative z-1 flex h-24 shrink-0 items-center gap-3 border-t border-white/10 px-6 backdrop-blur-sm"
+                                style="background: linear-gradient(to bottom, #190a0d, #270f14);">
+                                <div
+                                    class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20 text-xs font-semibold text-white">
+                                    SU</div>
+                                <div class="min-w-0">
+                                    <p class="truncate text-[18px] font-medium text-white">Surya Uday</p>
+                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                </div>
+                            </div>
+                        </article>
+                        <!-- Shreya Goyal -->
+                        <article
+                            class="relative flex w-[min(86vw,430px)] flex-col overflow-hidden rounded-[24px] border border-white/25 bg-[#09090c] lg:w-[430px] h-[240px]">
+                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                <img src="https://cdn.masaischool.com/masai-website/765b5312_53c8_4668_8052_6451f2b79eb4_2a8718dbdc.webp"
+                                    alt="Shreya Goyal" class="absolute inset-0 h-full w-full object-cover">
+                            </div>
+                            <div class="relative z-1 flex h-24 shrink-0 items-center gap-3 border-t border-white/10 px-6 backdrop-blur-sm"
+                                style="background: linear-gradient(to bottom, #190a0d, #270f14);">
+                                <div
+                                    class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20 text-xs font-semibold text-white">
+                                    SG</div>
+                                <div class="min-w-0">
+                                    <p class="truncate text-[18px] font-medium text-white">Shreya Goyal</p>
+                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Column 2: Nikhil Gupta (tall) -->
+                    <div class="mr-10 flex shrink-0 flex-col gap-6 mt-[128px]">
+                        <article
+                            class="relative flex w-[min(86vw,430px)] flex-col overflow-hidden rounded-[24px] border border-white/25 bg-[#09090c] lg:w-[430px] h-[420px]">
+                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                <img src="https://cdn.masaischool.com/masai-website/232f4ea0_0ef6_4866_8c41_96ccb335f5a2_4e146a26ae.webp"
+                                    alt="Nikhil Gupta" class="absolute inset-0 h-full w-full object-cover">
+                            </div>
+                            <div class="relative z-1 flex h-24 shrink-0 items-center gap-3 border-t border-white/10 px-6 backdrop-blur-sm"
+                                style="background: linear-gradient(to bottom, #190a0d, #270f14);">
+                                <div
+                                    class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20 text-xs font-semibold text-white">
+                                    NG</div>
+                                <div class="min-w-0">
+                                    <p class="truncate text-[18px] font-medium text-white">Nikhil Gupta</p>
+                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Column 3: Tanya Prasad & Sahana Iyer (stacked) -->
+                    <div class="mr-10 flex shrink-0 flex-col gap-6 mt-[72px]">
+                        <!-- Tanya Prasad -->
+                        <article
+                            class="relative flex w-[min(86vw,430px)] flex-col overflow-hidden rounded-[24px] border border-white/25 bg-[#09090c] lg:w-[430px] h-[240px]">
+                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                <img src="https://cdn.masaischool.com/masai-website/c4a41893_b307_420f_be3d_481cd7bd5978_73ba0f8877.webp"
+                                    alt="Tanya Prasad" class="absolute inset-0 h-full w-full object-cover">
+                            </div>
+                            <div class="relative z-1 flex h-24 shrink-0 items-center gap-3 border-t border-white/10 px-6 backdrop-blur-sm"
+                                style="background: linear-gradient(to bottom, #190a0d, #270f14);">
+                                <div
+                                    class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20 text-xs font-semibold text-white">
+                                    TP</div>
+                                <div class="min-w-0">
+                                    <p class="truncate text-[18px] font-medium text-white">Tanya Prasad</p>
+                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                </div>
+                            </div>
+                        </article>
+                        <!-- Sahana Iyer -->
+                        <article
+                            class="relative flex w-[min(86vw,430px)] flex-col overflow-hidden rounded-[24px] border border-white/25 bg-[#09090c] lg:w-[430px] h-[316px]">
+                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                <img src="https://cdn.masaischool.com/masai-website/d8398577_dc4c_409c_98ba_63b48f256a08_6e85bd4758.webp"
+                                    alt="Sahana Iyer" class="absolute inset-0 h-full w-full object-cover">
+                            </div>
+                            <div class="relative z-1 flex h-24 shrink-0 items-center gap-3 border-t border-white/10 px-6 backdrop-blur-sm"
+                                style="background: linear-gradient(to bottom, #190a0d, #270f14);">
+                                <div
+                                    class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20 text-xs font-semibold text-white">
+                                    SI</div>
+                                <div class="min-w-0">
+                                    <p class="truncate text-[18px] font-medium text-white">Sahana Iyer</p>
+                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Column 4: Sharath Kumar (tall) -->
+                    <div class="mr-10 flex shrink-0 flex-col gap-6 mt-[120px]">
+                        <article
+                            class="relative flex w-[min(86vw,430px)] flex-col overflow-hidden rounded-[24px] border border-white/25 bg-[#09090c] lg:w-[430px] h-[420px]">
+                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                <img src="https://cdn.masaischool.com/masai-website/769153fc_6a45_4a5b_98a6_92f8adb3be2e_e6f80b3b6f.webp"
+                                    alt="Sharath Kumar" class="absolute inset-0 h-full w-full object-cover">
+                            </div>
+                            <div class="relative z-1 flex h-24 shrink-0 items-center gap-3 border-t border-white/10 px-6 backdrop-blur-sm"
+                                style="background: linear-gradient(to bottom, #190a0d, #270f14);">
+                                <div
+                                    class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20 text-xs font-semibold text-white">
+                                    SK</div>
+                                <div class="min-w-0">
+                                    <p class="truncate text-[18px] font-medium text-white">Sharath Kumar</p>
+                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                </div>
+
+                <!-- Group 2 (Duplicate for seamless loop) -->
+                <div class="flex flex-row">
+
+                    <!-- Column 1: Surya Uday & Shreya Goyal (stacked) -->
+                    <div class="mr-10 flex shrink-0 flex-col gap-6 mt-[96px]">
+                        <!-- Surya Uday -->
+                        <article
+                            class="relative flex w-[min(86vw,430px)] flex-col overflow-hidden rounded-[24px] border border-white/25 bg-[#09090c] lg:w-[430px] h-[316px]">
+                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                <img src="https://cdn.masaischool.com/masai-website/5acd7615_149d_4c64_a29f_66f1a12f3cab_2f0f5cfb58.webp"
+                                    alt="Surya Uday" class="absolute inset-0 h-full w-full object-cover">
+                            </div>
+                            <div class="relative z-1 flex h-24 shrink-0 items-center gap-3 border-t border-white/10 px-6 backdrop-blur-sm"
+                                style="background: linear-gradient(to bottom, #190a0d, #270f14);">
+                                <div
+                                    class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20 text-xs font-semibold text-white">
+                                    SU</div>
+                                <div class="min-w-0">
+                                    <p class="truncate text-[18px] font-medium text-white">Surya Uday</p>
+                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                </div>
+                            </div>
+                        </article>
+                        <!-- Shreya Goyal -->
+                        <article
+                            class="relative flex w-[min(86vw,430px)] flex-col overflow-hidden rounded-[24px] border border-white/25 bg-[#09090c] lg:w-[430px] h-[240px]">
+                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                <img src="https://cdn.masaischool.com/masai-website/765b5312_53c8_4668_8052_6451f2b79eb4_2a8718dbdc.webp"
+                                    alt="Shreya Goyal" class="absolute inset-0 h-full w-full object-cover">
+                            </div>
+                            <div class="relative z-1 flex h-24 shrink-0 items-center gap-3 border-t border-white/10 px-6 backdrop-blur-sm"
+                                style="background: linear-gradient(to bottom, #190a0d, #270f14);">
+                                <div
+                                    class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20 text-xs font-semibold text-white">
+                                    SG</div>
+                                <div class="min-w-0">
+                                    <p class="truncate text-[18px] font-medium text-white">Shreya Goyal</p>
+                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Column 2: Nikhil Gupta (tall) -->
+                    <div class="mr-10 flex shrink-0 flex-col gap-6 mt-[128px]">
+                        <article
+                            class="relative flex w-[min(86vw,430px)] flex-col overflow-hidden rounded-[24px] border border-white/25 bg-[#09090c] lg:w-[430px] h-[420px]">
+                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                <img src="https://cdn.masaischool.com/masai-website/232f4ea0_0ef6_4866_8c41_96ccb335f5a2_4e146a26ae.webp"
+                                    alt="Nikhil Gupta" class="absolute inset-0 h-full w-full object-cover">
+                            </div>
+                            <div class="relative z-1 flex h-24 shrink-0 items-center gap-3 border-t border-white/10 px-6 backdrop-blur-sm"
+                                style="background: linear-gradient(to bottom, #190a0d, #270f14);">
+                                <div
+                                    class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20 text-xs font-semibold text-white">
+                                    NG</div>
+                                <div class="min-w-0">
+                                    <p class="truncate text-[18px] font-medium text-white">Nikhil Gupta</p>
+                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Column 3: Tanya Prasad & Sahana Iyer (stacked) -->
+                    <div class="mr-10 flex shrink-0 flex-col gap-6 mt-[72px]">
+                        <!-- Tanya Prasad -->
+                        <article
+                            class="relative flex w-[min(86vw,430px)] flex-col overflow-hidden rounded-[24px] border border-white/25 bg-[#09090c] lg:w-[430px] h-[240px]">
+                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                <img src="https://cdn.masaischool.com/masai-website/c4a41893_b307_420f_be3d_481cd7bd5978_73ba0f8877.webp"
+                                    alt="Tanya Prasad" class="absolute inset-0 h-full w-full object-cover">
+                            </div>
+                            <div class="relative z-1 flex h-24 shrink-0 items-center gap-3 border-t border-white/10 px-6 backdrop-blur-sm"
+                                style="background: linear-gradient(to bottom, #190a0d, #270f14);">
+                                <div
+                                    class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20 text-xs font-semibold text-white">
+                                    TP</div>
+                                <div class="min-w-0">
+                                    <p class="truncate text-[18px] font-medium text-white">Tanya Prasad</p>
+                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                </div>
+                            </div>
+                        </article>
+                        <!-- Sahana Iyer -->
+                        <article
+                            class="relative flex w-[min(86vw,430px)] flex-col overflow-hidden rounded-[24px] border border-white/25 bg-[#09090c] lg:w-[430px] h-[316px]">
+                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                <img src="https://cdn.masaischool.com/masai-website/d8398577_dc4c_409c_98ba_63b48f256a08_6e85bd4758.webp"
+                                    alt="Sahana Iyer" class="absolute inset-0 h-full w-full object-cover">
+                            </div>
+                            <div class="relative z-1 flex h-24 shrink-0 items-center gap-3 border-t border-white/10 px-6 backdrop-blur-sm"
+                                style="background: linear-gradient(to bottom, #190a0d, #270f14);">
+                                <div
+                                    class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20 text-xs font-semibold text-white">
+                                    SI</div>
+                                <div class="min-w-0">
+                                    <p class="truncate text-[18px] font-medium text-white">Sahana Iyer</p>
+                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Column 4: Sharath Kumar (tall) -->
+                    <div class="mr-10 flex shrink-0 flex-col gap-6 mt-[120px]">
+                        <article
+                            class="relative flex w-[min(86vw,430px)] flex-col overflow-hidden rounded-[24px] border border-white/25 bg-[#09090c] lg:w-[430px] h-[420px]">
+                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                <img src="https://cdn.masaischool.com/masai-website/769153fc_6a45_4a5b_98a6_92f8adb3be2e_e6f80b3b6f.webp"
+                                    alt="Sharath Kumar" class="absolute inset-0 h-full w-full object-cover">
+                            </div>
+                            <div class="relative z-1 flex h-24 shrink-0 items-center gap-3 border-t border-white/10 px-6 backdrop-blur-sm"
+                                style="background: linear-gradient(to bottom, #190a0d, #270f14);">
+                                <div
+                                    class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20 text-xs font-semibold text-white">
+                                    SK</div>
+                                <div class="min-w-0">
+                                    <p class="truncate text-[18px] font-medium text-white">Sharath Kumar</p>
+                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Carousel Section -->
+        <div class="md:hidden px-4">
+            <div class="relative mx-auto overflow-hidden">
+                <div id="mobile-carousel"
+                    class="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar"
+                    style="scrollbar-width: none; -ms-overflow-style: none;">
+                    <!-- Slide 1 -->
+                    <div class="w-[85vw] shrink-0 snap-center">
+                        <article
+                            class="relative flex h-[308px] w-full flex-col overflow-hidden rounded-[20px] border border-white/20 bg-[#09090c]">
+                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                <img src="https://cdn.masaischool.com/masai-website/5acd7615_149d_4c64_a29f_66f1a12f3cab_2f0f5cfb58.webp"
+                                    alt="Surya Uday" class="absolute inset-0 h-full w-full object-cover">
+                            </div>
+                            <div
+                                class="relative z-1 flex h-[76px] shrink-0 items-center gap-3 border-t border-white/10 bg-linear-to-b from-[#190a0d] to-[#270f14] px-5 backdrop-blur-[3px]">
+                                <div
+                                    class="flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded-full bg-white/20 text-[11px] font-semibold text-white">
+                                    SU</div>
+                                <div class="min-w-0">
+                                    <p class="truncate text-sm font-medium text-white">Surya Uday</p>
+                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="w-[85vw] shrink-0 snap-center">
+                        <article
+                            class="relative flex h-[308px] w-full flex-col overflow-hidden rounded-[20px] border border-white/20 bg-[#09090c]">
+                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                <img src="https://cdn.masaischool.com/masai-website/765b5312_53c8_4668_8052_6451f2b79eb4_2a8718dbdc.webp"
+                                    alt="Shreya Goyal" class="absolute inset-0 h-full w-full object-cover">
+                            </div>
+                            <div
+                                class="relative z-1 flex h-[76px] shrink-0 items-center gap-3 border-t border-white/10 bg-linear-to-b from-[#190a0d] to-[#270f14] px-5 backdrop-blur-[3px]">
+                                <div
+                                    class="flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded-full bg-white/20 text-[11px] font-semibold text-white">
+                                    SG</div>
+                                <div class="min-w-0">
+                                    <p class="truncate text-sm font-medium text-white">Shreya Goyal</p>
+                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="w-[85vw] shrink-0 snap-center">
+                        <article
+                            class="relative flex h-[308px] w-full flex-col overflow-hidden rounded-[20px] border border-white/20 bg-[#09090c]">
+                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                <img src="https://cdn.masaischool.com/masai-website/232f4ea0_0ef6_4866_8c41_96ccb335f5a2_4e146a26ae.webp"
+                                    alt="Nikhil Gupta" class="absolute inset-0 h-full w-full object-cover">
+                            </div>
+                            <div
+                                class="relative z-1 flex h-[76px] shrink-0 items-center gap-3 border-t border-white/10 bg-linear-to-b from-[#190a0d] to-[#270f14] px-5 backdrop-blur-[3px]">
+                                <div
+                                    class="flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded-full bg-white/20 text-[11px] font-semibold text-white">
+                                    NG</div>
+                                <div class="min-w-0">
+                                    <p class="truncate text-sm font-medium text-white">Nikhil Gupta</p>
+                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    <!-- Slide 4 -->
+                    <div class="w-[85vw] shrink-0 snap-center">
+                        <article
+                            class="relative flex h-[308px] w-full flex-col overflow-hidden rounded-[20px] border border-white/20 bg-[#09090c]">
+                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                <img src="https://cdn.masaischool.com/masai-website/c4a41893_b307_420f_be3d_481cd7bd5978_73ba0f8877.webp"
+                                    alt="Tanya Prasad" class="absolute inset-0 h-full w-full object-cover">
+                            </div>
+                            <div
+                                class="relative z-1 flex h-[76px] shrink-0 items-center gap-3 border-t border-white/10 bg-linear-to-b from-[#190a0d] to-[#270f14] px-5 backdrop-blur-[3px]">
+                                <div
+                                    class="flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded-full bg-white/20 text-[11px] font-semibold text-white">
+                                    TP</div>
+                                <div class="min-w-0">
+                                    <p class="truncate text-sm font-medium text-white">Tanya Prasad</p>
+                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    <!-- Slide 5 -->
+                    <div class="w-[85vw] shrink-0 snap-center">
+                        <article
+                            class="relative flex h-[308px] w-full flex-col overflow-hidden rounded-[20px] border border-white/20 bg-[#09090c]">
+                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                <img src="https://cdn.masaischool.com/masai-website/d8398577_dc4c_409c_98ba_63b48f256a08_6e85bd4758.webp"
+                                    alt="Sahana Iyer" class="absolute inset-0 h-full w-full object-cover">
+                            </div>
+                            <div
+                                class="relative z-1 flex h-[76px] shrink-0 items-center gap-3 border-t border-white/10 bg-linear-to-b from-[#190a0d] to-[#270f14] px-5 backdrop-blur-[3px]">
+                                <div
+                                    class="flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded-full bg-white/20 text-[11px] font-semibold text-white">
+                                    SI</div>
+                                <div class="min-w-0">
+                                    <p class="truncate text-sm font-medium text-white">Sahana Iyer</p>
+                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    <!-- Slide 6 -->
+                    <div class="w-[85vw] shrink-0 snap-center">
+                        <article
+                            class="relative flex h-[308px] w-full flex-col overflow-hidden rounded-[20px] border border-white/20 bg-[#09090c]">
+                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                <img src="https://cdn.masaischool.com/masai-website/769153fc_6a45_4a5b_98a6_92f8adb3be2e_e6f80b3b6f.webp"
+                                    alt="Sharath Kumar" class="absolute inset-0 h-full w-full object-cover">
+                            </div>
+                            <div
+                                class="relative z-1 flex h-[76px] shrink-0 items-center gap-3 border-t border-white/10 bg-linear-to-b from-[#190a0d] to-[#270f14] px-5 backdrop-blur-[3px]">
+                                <div
+                                    class="flex h-[35px] w-[35px] shrink-0 items-center justify-center rounded-full bg-white/20 text-[11px] font-semibold text-white">
+                                    SK</div>
+                                <div class="min-w-0">
+                                    <p class="truncate text-sm font-medium text-white">Sharath Kumar</p>
+                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+            <!-- Indicators -->
+            <div id="carousel-indicators" class="mt-8 flex items-center justify-center gap-2">
+                <span class="h-2 rounded-full w-6 bg-[#ed0331] transition-all duration-300"></span>
+                <span class="h-2 w-2 rounded-full bg-[#3b3b3f] transition-all duration-300"></span>
+                <span class="h-2 w-2 rounded-full bg-[#3b3b3f] transition-all duration-300"></span>
+                <span class="h-2 w-2 rounded-full bg-[#3b3b3f] transition-all duration-300"></span>
+                <span class="h-2 w-2 rounded-full bg-[#3b3b3f] transition-all duration-300"></span>
+                <span class="h-2 w-2 rounded-full bg-[#3b3b3f] transition-all duration-300"></span>
+            </div>
+        </div>
+    </section>
+
+    <footer class="mx-auto bg-[#151515] px-4 py-6 text-sm text-[#848081] sm:px-10">
+        <div
+            class="mx-auto flex w-full max-w-[1280px] justify-between flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <img src="https://cdn.masaischool.com/masai-website/masai_dark_853075d7cd.png" alt="Masai"
+                class="h-[30px] w-auto max-w-[80px]">
+            <p class="font-medium text-[#b7b1b2]"><a href="#"
+                    class="underline cursor-not-allowed text-[#848081] hover:text-[#848081]">Privacy Policy</a> &amp; <a
+                    href="#" class="underline cursor-not-allowed text-[#848081] hover:text-[#848081]">Terms and
+                    Conditions</a></p>
+        </div>
+    </footer>
+
+    <!-- Toggle Script -->
+    <script>
+        const cohortData = {
+            monthly: {
+                mobile: {
+                    heading: "MCP Chief of Staff",
+                    italic: "Workshop",
+                    badges: ["FREE", "LIVE & ASYNC", "BUILD & SHIP APPLICATIONS", "CERTIFICATE"],
+                    description: "Create an AI-powered assistant that acts as a “Chief of Staff” for your communication workflows. The system ingests forwarded email threads or messages, understands context, prioritizes tasks, and generates intelligent replies or action items. Participants will learn MCP integrations, thread parsing, summarization, and automated response generation. The final output demonstrates real-time triaging and replying to live communication threads with minimal human intervention."
+                },
+                desktop: {
+                    topBadges: ["NOW LIVE", "11,038 JOINED", "DURATION: 1 MONTH"],
+                    heading: "MCP Chief of Staff",
+                    italic: "Workshop",
+                    description: "Create an AI-powered assistant that acts as a \"Chief of Staff\" for your communication workflows. The system ingests forwarded email threads or messages, understands context, prioritizes tasks, and generates intelligent replies or action items. Participants will learn MCP integrations, thread parsing, summarization, and automated response generation. The final output demonstrates real-time triaging and replying to live communication threads with minimal human intervention.",
+                    flatBadges: ["FREE", "LIVE & ASYNC", "BUILD & SHIP APPLICATIONS", "CERTIFICATE"]
+                },
+                cardBadges: ["Duration: 1 Month", "11,045+ joined"]
+            },
+            weekly: {
+                mobile: {
+                    heading: "StudyPilot — Timetable Builder for Students",
+                    italic: "Workshop.",
+                    badges: ["FREE", "ASYNC", "BUILD & SHIP", "WEEKLY BASED", "CERTIFICATE"],
+                    description: "Stop guessing what to study. Let your agent decide."
+                },
+                desktop: {
+                    topBadges: ["NOW LIVE", "9,478 JOINED", "DURATION: 1 WEEK"],
+                    heading: "StudyPilot — Timetable Builder for Students",
+                    italic: "Workshop.",
+                    description: "Stop guessing what to study. Let your agent decide.",
+                    flatBadges: ["FREE", "ASYNC", "BUILD & SHIP", "WEEKLY BASED", "CERTIFICATE"]
+                },
+                cardBadges: ["Duration: 1 Week", "9,478 joined"]
+            }
+        };
+
+        function setToggle(mode) {
+            const monthlyBtn = document.getElementById('toggle-monthly');
+            const weeklyBtn = document.getElementById('toggle-weekly');
+            const newBadge = weeklyBtn.querySelector('.new-badge');
+
+            if (mode === 'monthly') {
+                monthlyBtn.classList.remove('inactive');
+                monthlyBtn.classList.add('active');
+                weeklyBtn.classList.remove('active');
+                weeklyBtn.classList.add('inactive');
+
+                if (newBadge) {
+                    newBadge.style.backgroundColor = '#ED0331';
+                    newBadge.style.color = '#FFF200';
+                }
+            } else {
+                weeklyBtn.classList.remove('inactive');
+                weeklyBtn.classList.add('active');
+                monthlyBtn.classList.remove('active');
+                monthlyBtn.classList.add('inactive');
+
+                if (newBadge) {
+                    newBadge.style.backgroundColor = '#ffffff';
+                    newBadge.style.color = '#ED0331';
+                }
+            }
+
+            updateCohortContent(mode);
+        }
+
+        function updateCohortContent(mode) {
+            const data = cohortData[mode];
+            if (!data) return;
+
+            // Update Desktop Layout
+            const desktopTopBadgesContainer = document.getElementById('desktop-top-badges');
+            if (desktopTopBadgesContainer) {
+                desktopTopBadgesContainer.innerHTML = data.desktop.topBadges
+                    .map(badge => `<span class="live-badge">${badge}</span>`)
+                    .join('');
+            }
+
+            const desktopTitle = document.getElementById('desktop-title');
+            if (desktopTitle) {
+                desktopTitle.innerHTML = `${data.desktop.heading} <span class="section-title-italic">${data.desktop.italic}</span>`;
+            }
+
+            const desktopDescription = document.getElementById('desktop-description');
+            if (desktopDescription) {
+                desktopDescription.textContent = data.desktop.description;
+            }
+
+            const desktopFlatBadgesContainer = document.getElementById('desktop-flat-badges');
+            if (desktopFlatBadgesContainer) {
+                desktopFlatBadgesContainer.innerHTML = data.desktop.flatBadges
+                    .map(badge => `<span class="flat-badge">${badge}</span>`)
+                    .join('');
+            }
+
+            // Update Mobile Layout
+            const mobileHeading = document.getElementById('mobile-heading');
+            if (mobileHeading) {
+                mobileHeading.textContent = data.mobile.heading;
+            }
+
+            const mobileItalic = document.getElementById('mobile-italic');
+            if (mobileItalic) {
+                mobileItalic.textContent = data.mobile.italic;
+            }
+
+            const mobileFlatBadgesContainer = document.getElementById('mobile-flat-badges');
+            if (mobileFlatBadgesContainer) {
+                mobileFlatBadgesContainer.innerHTML = data.mobile.badges
+                    .map(badge => `<span class="inline-flex h-6 items-center rounded-full border border-[#494748]/22 bg-[#ada6a6]/10 px-[13px] text-[12px] font-semibold uppercase tracking-[1.1px] text-[#d5d1d1] font-sans">${badge}</span>`)
+                    .join('');
+            }
+
+            const mobileDescription = document.getElementById('mobile-description');
+            if (mobileDescription) {
+                mobileDescription.textContent = data.mobile.description;
+            }
+
+            // Update Card top-right badges (mobile-only)
+            const cardTopBadgesContainer = document.getElementById('card-top-badges');
+            if (cardTopBadgesContainer) {
+                cardTopBadgesContainer.innerHTML = data.cardBadges
+                    .map(badge => `<span class="inline-flex h-6 items-center rounded-full border border-[#a2a2a2]/22 bg-black/40 px-[9px] text-[12px] font-semibold uppercase tracking-[1.1px] text-[#e8294a]">${badge}</span>`)
+                    .join('');
+            }
+        }
+
+        // Mobile Carousel Indicators Sync
+        const carousel = document.getElementById('mobile-carousel');
+        const indicators = document.querySelectorAll('#carousel-indicators span');
+
+        if (carousel && indicators.length > 0) {
+            carousel.addEventListener('scroll', () => {
+                const scrollLeft = carousel.scrollLeft;
+                const cardWidth = carousel.firstElementChild.offsetWidth + 16; // width + gap
+                const activeIndex = Math.round(scrollLeft / cardWidth);
+
+                indicators.forEach((dot, idx) => {
+                    if (idx === activeIndex) {
+                        dot.className = 'h-2 rounded-full w-6 bg-[#ed0331] transition-all duration-300';
+                    } else {
+                        dot.className = 'h-2 w-2 rounded-full bg-[#3b3b3f] transition-all duration-300';
+                    }
+                });
+            });
+        }
+
+        // Upcoming Cohorts Carousel Navigation
+        const upcomingCarousel = document.getElementById('upcoming-carousel');
+        const upcomingPrevBtn = document.getElementById('upcoming-prev-btn');
+        const upcomingNextBtn = document.getElementById('upcoming-next-btn');
+
+        if (upcomingCarousel && upcomingPrevBtn && upcomingNextBtn) {
+            upcomingPrevBtn.addEventListener('click', () => {
+                const cardWidth = upcomingCarousel.firstElementChild.offsetWidth;
+                upcomingCarousel.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+            });
+
+            upcomingNextBtn.addEventListener('click', () => {
+                const cardWidth = upcomingCarousel.firstElementChild.offsetWidth;
+                upcomingCarousel.scrollBy({ left: cardWidth, behavior: 'smooth' });
+            });
+
+            upcomingCarousel.addEventListener('scroll', () => {
+                const scrollLeft = upcomingCarousel.scrollLeft;
+                const maxScroll = upcomingCarousel.scrollWidth - upcomingCarousel.clientWidth;
+
+                upcomingPrevBtn.disabled = scrollLeft <= 0;
+                upcomingNextBtn.disabled = scrollLeft >= maxScroll - 5;
+
+                if (upcomingPrevBtn.disabled) {
+                    upcomingPrevBtn.classList.add('opacity-50');
+                    upcomingPrevBtn.setAttribute('disabled', 'true');
+                } else {
+                    upcomingPrevBtn.classList.remove('opacity-50');
+                    upcomingPrevBtn.removeAttribute('disabled');
+                }
+
+                if (upcomingNextBtn.disabled) {
+                    upcomingNextBtn.classList.add('opacity-50');
+                    upcomingNextBtn.setAttribute('disabled', 'true');
+                } else {
+                    upcomingNextBtn.classList.remove('opacity-50');
+                    upcomingNextBtn.removeAttribute('disabled');
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

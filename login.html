@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Masai Live</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Instrument+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'poppins': ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        background: '#0b0b0b',
+                        foreground: '#f2ede2',
+                        input: '#544d4f',
+                        ring: '#ed0331',
+                        'muted-foreground': '#929292',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        /* Marquee Autoscroll Animation */
+        .rfm-initial-child-container {
+            display: flex;
+            flex-direction: row;
+            width: max-content;
+            animation: rfm-scroll 65s linear infinite;
+        }
+
+        .rfm-marquee-container:hover .rfm-initial-child-container {
+            animation-play-state: paused;
+        }
+
+        @keyframes rfm-scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Hide scrollbars */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="bg-[#000000] min-h-screen flex flex-col justify-between">
+    <!-- Back to Home -->
+    <a href="index.html" class="absolute top-6 left-6 text-sm text-[#848081] hover:text-white flex items-center gap-2 transition-colors z-30 font-medium">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+        </svg>
+        Back to Home
+    </a>
+
+    <section class="relative flex w-full flex-1 flex-col md:min-h-dvh md:flex-row lg:bg-[#000000]">
+        <!-- Left Column: Form -->
+        <div class="relative flex flex-1 flex-col px-4 pb-10 pt-8 max-md:font-[Poppins] md:items-center md:justify-center md:p-10 isolate">
+            <!-- Mobile Grid Background Overlay Pattern -->
+            <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 top-0 h-full z-[-1] lg:hidden">
+                <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-[-1] h-[60%] lg:h-[70%]"
+                    style="background-image: linear-gradient(rgba(158, 18, 37, 0.28) 0%, rgba(158, 18, 37, 0.11) 25%, rgba(6, 6, 8, 0.15) 60%, rgba(6, 6, 8, 0.96) 100%), repeating-linear-gradient(0deg, rgba(128, 21, 35, 0.13) 0px, rgba(128, 21, 35, 0.13) 1px, transparent 1px, transparent 34px), repeating-linear-gradient(90deg, rgba(128, 21, 35, 0.13) 0px, rgba(128, 21, 35, 0.13) 1px, transparent 1px, transparent 34px);">
+                </div>
+                <div aria-hidden="true" class="pointer-events-none absolute inset-0 bg-[radial-gradient(52%_44%_at_50%_3%,rgb(187_57_78/38%)_0%,rgba(6,6,8,0)_100%)] z-[-1]"></div>
+            </div>
+            <div class="mx-auto w-full max-w-[343px] space-y-8 max-md:text-white md:max-w-sm md:space-y-7">
+                <div class="hidden items-baseline justify-center gap-1.5 max-md:flex">
+                    <span class="font-[Poppins] text-[34px] font-semibold leading-none tracking-tight text-[#fafafa]">masai</span>
+                    <span class="font-['Instrument_Serif',serif] text-[34px] italic leading-none text-[#e63946]">live.</span>
+                </div>
+                <div class="space-y-2 text-center max-md:space-y-3">
+                    <h1 class="max-md:font-semibold text-3xl font-bold max-md:text-xl text-white md:text-3xl">Welcome back</h1>
+                    <p class="text-sm text-muted-foreground max-md:text-xs max-md:font-normal max-md:leading-5 max-md:text-[#929292]">
+                        Enter your details below to sign in to your account
+                    </p>
+                </div>
+                <form class="space-y-4 max-md:space-y-6" onsubmit="event.preventDefault(); alert('Logged in successfully! Redirecting...'); window.location.href='index.html';">
+                    <!-- Email -->
+                    <div class="space-y-1.5 max-md:space-y-1.5 md:space-y-2">
+                        <label class="text-sm font-medium max-md:font-[Poppins] max-md:text-xs max-md:font-medium text-[#cccccc]">
+                            Email address <span class="text-[#ed0331]" aria-hidden="true">*</span>
+                        </label>
+                        <input type="email" required class="flex w-full border border-input bg-background/80 px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 rounded-md h-[48px] max-md:h-auto max-md:min-h-[48px] max-md:rounded-lg max-md:border max-md:border-[#544d4f] max-md:bg-[#0b0b0b] max-md:px-3 max-md:py-3 max-md:text-xs max-md:font-light max-md:text-[#f2ede2] max-md:placeholder:text-[#929292] max-md:ring-0 max-md:focus-visible:ring-2 max-md:focus-visible:ring-[#ed0331]/35 max-md:focus-visible:ring-offset-0 max-md:focus-visible:ring-offset-transparent" placeholder="Enter your full email address">
+                    </div>
+                    <!-- Submit -->
+                    <button type="submit" class="relative cursor-pointer transition-colors px-3.5 h-12 w-full rounded-full text-lg font-semibold bg-[#ED0331] text-white shadow-[0_4px_24px_-2px_rgba(237,3,49,0.22)] hover:bg-[#bd0024] focus:outline-none max-md:h-14 max-md:text-[18.5px] max-md:bg-[#ED0331] max-md:font-semibold">
+                        <span class="flex items-center justify-center w-full">
+                            <span class="flex-1 text-center font-semibold">Sign In</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right pointer-events-none absolute right-6 top-1/2 -translate-y-1/2 size-6 max-md:block md:hidden" aria-hidden="true">
+                                <path d="M5 12h14"></path>
+                                <path d="m12 5 7 7-7 7"></path>
+                            </svg>
+                        </span>
+                    </button>
+                </form>
+                <!-- Redirect Link -->
+                <p class="text-center text-sm text-[#f2ede2] max-md:text-xs max-md:font-light max-md:leading-7">
+                    Don't have an account? 
+                    <button type="button" onclick="window.location.href='signup.html';" class="cursor-pointer relative p-0 m-0 bg-none rounded-none underline underline-offset-2 text-[#ED0331] font-semibold text-sm inline ml-2 hover:opacity-80 transition-opacity">
+                        <span class="flex items-center justify-center w-full">
+                            <span class="flex-1 text-center font-semibold">Sign up</span>
+                        </span>
+                    </button>
+                </p>
+            </div>
+        </div>
+
+        <!-- Right Column: Branding & Grid -->
+        <section class="max-h-dvh relative hidden min-h-0 flex-1 flex-col overflow-hidden bg-[#000000] p-0 lg:flex isolate border-l border-[#1f1f1f]/30">
+            <!-- Grid Background Overlay Pattern -->
+            <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 top-0 h-full z-[-1]">
+                <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-[-1] h-[60%] lg:h-[70%]"
+                    style="background-image: linear-gradient(rgba(158, 18, 37, 0.28) 0%, rgba(158, 18, 37, 0.11) 25%, rgba(6, 6, 8, 0.15) 60%, rgba(6, 6, 8, 0.96) 100%), repeating-linear-gradient(0deg, rgba(128, 21, 35, 0.13) 0px, rgba(128, 21, 35, 0.13) 1px, transparent 1px, transparent 34px), repeating-linear-gradient(90deg, rgba(128, 21, 35, 0.13) 0px, rgba(128, 21, 35, 0.13) 1px, transparent 1px, transparent 34px);">
+                </div>
+                <div aria-hidden="true" class="pointer-events-none absolute inset-0 bg-[radial-gradient(52%_44%_at_68%_3%,rgb(187_57_78/38%)_0%,rgba(6,6,8,0)_100%)] z-[-1]"></div>
+            </div>
+
+            <!-- Branding Header Container -->
+            <div class="relative justify-center z-10 flex min-h-0 flex-1 flex-col pt-8">
+                <div class="flex shrink-0 items-baseline justify-center gap-3 pt-5 lg:gap-4">
+                    <span class="font-[Poppins] text-[50px] lg:text-[66px] font-semibold leading-none tracking-tight text-[#fafafa]">masai</span>
+                    <span class="font-['Instrument_Serif',serif] text-[50px] lg:text-[66px] italic leading-none text-[#e63946]">live.</span>
+                </div>
+                <div class="min-h-0">
+                    <section class="overflow-hidden py-0">
+                        <div class="mx-auto max-w-[1920px]">
+                            <!-- Subheading -->
+                            <div class="mb-10 px-4 text-center sm:px-6">
+                                <h3 class="font-bold tracking-[-1px] sm:text-[52px] sm:leading-[72px] text-white text-2xl lg:text-4xl">
+                                    1,200+ Applications <span class="font-['Instrument_Serif',serif] text-[#b81f2b] italic">shipped.</span>
+                                </h3>
+                                <p class="text-[#9e8c91] text-sm mt-0 lg:text-lg">
+                                    Every post is a proof. Every proof is a certificate. The wall never lies.
+                                </p>
+                            </div>
+
+                            <!-- Carousel and Marquee area -->
+                            <div class="relative px-0">
+                                <!-- Desktop Marquee Scroll -->
+                                <div class="hidden py-2 md:block">
+                                    <div class="rfm-marquee-container" style="--pause-on-hover: paused; --pause-on-click: paused; --width: 100%; --transform: none;">
+                                        <div class="rfm-marquee" style="--play: running; --direction: normal; --duration: 0s; --delay: 0s; --iteration-count: infinite; --min-width: 100%;">
+                                            <div class="rfm-initial-child-container">
+                                                <!-- Column 1 -->
+                                                <div class="rfm-child" style="--transform: none;">
+                                                    <div class="mr-10 flex shrink-0 flex-col gap-6 mt-[96px]">
+                                                        <article class="relative flex w-[min(86vw,430px)] flex-col overflow-hidden rounded-[24px] border border-white/25 bg-[#09090c] lg:w-[430px] h-[316px]">
+                                                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                                                <img src="https://cdn.masaischool.com/masai-website/5acd7615_149d_4c64_a29f_66f1a12f3cab_2f0f5cfb58.webp" alt="Surya Uday" class="absolute inset-0 h-full w-full object-cover">
+                                                            </div>
+                                                            <div class="relative z-1 flex h-24 shrink-0 items-center gap-3 border-t border-white/10 bg-linear-to-b from-[#190a0d] to-[#270f14] px-6 backdrop-blur-xs">
+                                                                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20 text-xs font-semibold text-white">SU</div>
+                                                                <div class="min-w-0">
+                                                                    <p class="truncate text-[18px] font-medium text-white">Surya Uday</p>
+                                                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                        <article class="relative flex w-[min(86vw,430px)] flex-col overflow-hidden rounded-[24px] border border-white/25 bg-[#09090c] lg:w-[430px] h-[240px]">
+                                                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                                                <img src="https://cdn.masaischool.com/masai-website/765b5312_53c8_4668_8052_6451f2b79eb4_2a8718dbdc.webp" alt="Shreya Goyal" class="absolute inset-0 h-full w-full object-cover">
+                                                            </div>
+                                                            <div class="relative z-1 flex h-24 shrink-0 items-center gap-3 border-t border-white/10 bg-linear-to-b from-[#190a0d] to-[#270f14] px-6 backdrop-blur-xs">
+                                                                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20 text-xs font-semibold text-white">SG</div>
+                                                                <div class="min-w-0">
+                                                                    <p class="truncate text-[18px] font-medium text-white">Shreya Goyal</p>
+                                                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Column 2 -->
+                                                <div class="rfm-child" style="--transform: none;">
+                                                    <div class="mr-10 flex shrink-0 flex-col gap-6 mt-[128px]">
+                                                        <article class="relative flex w-[min(86vw,430px)] flex-col overflow-hidden rounded-[24px] border border-white/25 bg-[#09090c] lg:w-[430px] h-[420px]">
+                                                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                                                <img src="https://cdn.masaischool.com/masai-website/232f4ea0_0ef6_4866_8c41_96ccb335f5a2_4e146a26ae.webp" alt="Nikhil Gupta" class="absolute inset-0 h-full w-full object-cover">
+                                                            </div>
+                                                            <div class="relative z-1 flex h-24 shrink-0 items-center gap-3 border-t border-white/10 bg-linear-to-b from-[#190a0d] to-[#270f14] px-6 backdrop-blur-xs">
+                                                                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20 text-xs font-semibold text-white">NG</div>
+                                                                <div class="min-w-0">
+                                                                    <p class="truncate text-[18px] font-medium text-white">Nikhil Gupta</p>
+                                                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Column 3 -->
+                                                <div class="rfm-child" style="--transform: none;">
+                                                    <div class="mr-10 flex shrink-0 flex-col gap-6 mt-[72px]">
+                                                        <article class="relative flex w-[min(86vw,430px)] flex-col overflow-hidden rounded-[24px] border border-white/25 bg-[#09090c] lg:w-[430px] h-[240px]">
+                                                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                                                <img src="https://cdn.masaischool.com/masai-website/c4a41893_b307_420f_be3d_481cd7bd5978_73ba0f8877.webp" alt="Tanya Prasad" class="absolute inset-0 h-full w-full object-cover">
+                                                            </div>
+                                                            <div class="relative z-1 flex h-24 shrink-0 items-center gap-3 border-t border-white/10 bg-linear-to-b from-[#190a0d] to-[#270f14] px-6 backdrop-blur-xs">
+                                                                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20 text-xs font-semibold text-white">TP</div>
+                                                                <div class="min-w-0">
+                                                                    <p class="truncate text-[18px] font-medium text-white">Tanya Prasad</p>
+                                                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                        <article class="relative flex w-[min(86vw,430px)] flex-col overflow-hidden rounded-[24px] border border-white/25 bg-[#09090c] lg:w-[430px] h-[316px]">
+                                                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                                                <img src="https://cdn.masaischool.com/masai-website/d8398577_dc4c_409c_98ba_63b48f256a08_6e85bd4758.webp" alt="Sahana Iyer" class="absolute inset-0 h-full w-full object-cover">
+                                                            </div>
+                                                            <div class="relative z-1 flex h-24 shrink-0 items-center gap-3 border-t border-white/10 bg-linear-to-b from-[#190a0d] to-[#270f14] px-6 backdrop-blur-xs">
+                                                                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20 text-xs font-semibold text-white">SI</div>
+                                                                <div class="min-w-0">
+                                                                    <p class="truncate text-[18px] font-medium text-white">Sahana Iyer</p>
+                                                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Column 4 -->
+                                                <div class="rfm-child" style="--transform: none;">
+                                                    <div class="mr-10 flex shrink-0 flex-col gap-6 mt-[120px]">
+                                                        <article class="relative flex w-[min(86vw,430px)] flex-col overflow-hidden rounded-[24px] border border-white/25 bg-[#09090c] lg:w-[430px] h-[420px]">
+                                                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                                                <img src="https://cdn.masaischool.com/masai-website/769153fc_6a45_4a5b_98a6_92f8adb3be2e_e6f80b3b6f.webp" alt="Sharath Kumar" class="absolute inset-0 h-full w-full object-cover">
+                                                            </div>
+                                                            <div class="relative z-1 flex h-24 shrink-0 items-center gap-3 border-t border-white/10 bg-linear-to-b from-[#190a0d] to-[#270f14] px-6 backdrop-blur-xs">
+                                                                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20 text-xs font-semibold text-white">SK</div>
+                                                                <div class="min-w-0">
+                                                                    <p class="truncate text-[18px] font-medium text-white">Sharath Kumar</p>
+                                                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Duplicate Columns for Seamless Loop -->
+                                                <!-- Column 1 Duplicate -->
+                                                <div class="rfm-child" style="--transform: none;">
+                                                    <div class="mr-10 flex shrink-0 flex-col gap-6 mt-[96px]">
+                                                        <article class="relative flex w-[min(86vw,430px)] flex-col overflow-hidden rounded-[24px] border border-white/25 bg-[#09090c] lg:w-[430px] h-[316px]">
+                                                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                                                <img src="https://cdn.masaischool.com/masai-website/5acd7615_149d_4c64_a29f_66f1a12f3cab_2f0f5cfb58.webp" alt="Surya Uday" class="absolute inset-0 h-full w-full object-cover">
+                                                            </div>
+                                                            <div class="relative z-1 flex h-24 shrink-0 items-center gap-3 border-t border-white/10 bg-linear-to-b from-[#190a0d] to-[#270f14] px-6 backdrop-blur-xs">
+                                                                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20 text-xs font-semibold text-white">SU</div>
+                                                                <div class="min-w-0">
+                                                                    <p class="truncate text-[18px] font-medium text-white">Surya Uday</p>
+                                                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                        <article class="relative flex w-[min(86vw,430px)] flex-col overflow-hidden rounded-[24px] border border-white/25 bg-[#09090c] lg:w-[430px] h-[240px]">
+                                                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                                                <img src="https://cdn.masaischool.com/masai-website/765b5312_53c8_4668_8052_6451f2b79eb4_2a8718dbdc.webp" alt="Shreya Goyal" class="absolute inset-0 h-full w-full object-cover">
+                                                            </div>
+                                                            <div class="relative z-1 flex h-24 shrink-0 items-center gap-3 border-t border-white/10 bg-linear-to-b from-[#190a0d] to-[#270f14] px-6 backdrop-blur-xs">
+                                                                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20 text-xs font-semibold text-white">SG</div>
+                                                                <div class="min-w-0">
+                                                                    <p class="truncate text-[18px] font-medium text-white">Shreya Goyal</p>
+                                                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Column 2 Duplicate -->
+                                                <div class="rfm-child" style="--transform: none;">
+                                                    <div class="mr-10 flex shrink-0 flex-col gap-6 mt-[128px]">
+                                                        <article class="relative flex w-[min(86vw,430px)] flex-col overflow-hidden rounded-[24px] border border-white/25 bg-[#09090c] lg:w-[430px] h-[420px]">
+                                                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                                                <img src="https://cdn.masaischool.com/masai-website/232f4ea0_0ef6_4866_8c41_96ccb335f5a2_4e146a26ae.webp" alt="Nikhil Gupta" class="absolute inset-0 h-full w-full object-cover">
+                                                            </div>
+                                                            <div class="relative z-1 flex h-24 shrink-0 items-center gap-3 border-t border-white/10 bg-linear-to-b from-[#190a0d] to-[#270f14] px-6 backdrop-blur-xs">
+                                                                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20 text-xs font-semibold text-white">NG</div>
+                                                                <div class="min-w-0">
+                                                                    <p class="truncate text-[18px] font-medium text-white">Nikhil Gupta</p>
+                                                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Column 3 Duplicate -->
+                                                <div class="rfm-child" style="--transform: none;">
+                                                    <div class="mr-10 flex shrink-0 flex-col gap-6 mt-[72px]">
+                                                        <article class="relative flex w-[min(86vw,430px)] flex-col overflow-hidden rounded-[24px] border border-white/25 bg-[#09090c] lg:w-[430px] h-[240px]">
+                                                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                                                <img src="https://cdn.masaischool.com/masai-website/c4a41893_b307_420f_be3d_481cd7bd5978_73ba0f8877.webp" alt="Tanya Prasad" class="absolute inset-0 h-full w-full object-cover">
+                                                            </div>
+                                                            <div class="relative z-1 flex h-24 shrink-0 items-center gap-3 border-t border-white/10 bg-linear-to-b from-[#190a0d] to-[#270f14] px-6 backdrop-blur-xs">
+                                                                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20 text-xs font-semibold text-white">TP</div>
+                                                                <div class="min-w-0">
+                                                                    <p class="truncate text-[18px] font-medium text-white">Tanya Prasad</p>
+                                                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                        <article class="relative flex w-[min(86vw,430px)] flex-col overflow-hidden rounded-[24px] border border-white/25 bg-[#09090c] lg:w-[430px] h-[316px]">
+                                                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                                                <img src="https://cdn.masaischool.com/masai-website/d8398577_dc4c_409c_98ba_63b48f256a08_6e85bd4758.webp" alt="Sahana Iyer" class="absolute inset-0 h-full w-full object-cover">
+                                                            </div>
+                                                            <div class="relative z-1 flex h-24 shrink-0 items-center gap-3 border-t border-white/10 bg-linear-to-b from-[#190a0d] to-[#270f14] px-6 backdrop-blur-xs">
+                                                                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20 text-xs font-semibold text-white">SI</div>
+                                                                <div class="min-w-0">
+                                                                    <p class="truncate text-[18px] font-medium text-white">Sahana Iyer</p>
+                                                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Column 4 Duplicate -->
+                                                <div class="rfm-child" style="--transform: none;">
+                                                    <div class="mr-10 flex shrink-0 flex-col gap-6 mt-[120px]">
+                                                        <article class="relative flex w-[min(86vw,430px)] flex-col overflow-hidden rounded-[24px] border border-white/25 bg-[#09090c] lg:w-[430px] h-[420px]">
+                                                            <div class="relative min-h-0 flex-1 overflow-hidden">
+                                                                <img src="https://cdn.masaischool.com/masai-website/769153fc_6a45_4a5b_98a6_92f8adb3be2e_e6f80b3b6f.webp" alt="Sharath Kumar" class="absolute inset-0 h-full w-full object-cover">
+                                                            </div>
+                                                            <div class="relative z-1 flex h-24 shrink-0 items-center gap-3 border-t border-white/10 bg-linear-to-b from-[#190a0d] to-[#270f14] px-6 backdrop-blur-xs">
+                                                                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20 text-xs font-semibold text-white">SK</div>
+                                                                <div class="min-w-0">
+                                                                    <p class="truncate text-[18px] font-medium text-white">Sharath Kumar</p>
+                                                                    <p class="text-xs text-[#e63946]">April 2026 cohort</p>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </section>
+    </section>
+</body>
+
+</html>
