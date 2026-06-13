@@ -27,45 +27,7 @@
             }
         }
     </script>
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #000000;
-            color: #ffffff;
-            min-height: 100vh;
-            margin: 0;
-        }
-
-        /* Marquee Autoscroll Animation */
-        .rfm-initial-child-container {
-            display: flex;
-            flex-direction: row;
-            width: max-content;
-            animation: rfm-scroll 65s linear infinite;
-        }
-
-        .rfm-marquee-container:hover .rfm-initial-child-container {
-            animation-play-state: paused;
-        }
-
-        @keyframes rfm-scroll {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-
-        /* Hide scrollbars */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-    </style>
+    <link rel="stylesheet" href="auth.css">
 </head>
 
 <body class="bg-[#000000] min-h-screen flex flex-col justify-between">
